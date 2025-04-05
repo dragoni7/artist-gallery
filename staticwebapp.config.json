@@ -1,0 +1,92 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/",
+      "statusCode": 200
+    },
+    {
+      "route": "/about",
+      "statusCode": 200
+    },
+    {
+      "route": "/gallery",
+      "statusCode": 200
+    },
+    {
+      "route": "/commissions",
+      "statusCode": 200
+    },
+    {
+      "route": "/ocs",
+      "statusCode": 200
+    },
+    {
+      "route": "/login",
+      "statusCode": 200
+    },
+    {
+      "route": "/apanel",
+      "allowedRoles": ["admin"]
+    },
+    {
+      "route": "/Api/UploadImage",
+      "allowedRoles": ["admin"]
+    },
+    {
+      "route": "/Api/RemoveImage",
+      "allowedRoles": ["admin"]
+    },
+    {
+      "route": "/Api/UploadMediaTweet",
+      "allowedRoles": ["admin"]
+    },
+    {
+      "route": "/Api/SendEmail"
+    },
+    {
+      "route": "/alogin",
+      "redirect": "/.auth/login/github?post_login_redirect_uri=/login"
+    },
+    {
+      "route": "/alogout",
+      "redirect": "/.auth/logout"
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/aad",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/google",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/facebook",
+      "statusCode": 404
+    },
+    {
+      "route": "/assets/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
+      }
+    }
+  ],
+
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*.{png,jpg,gif}", "/css/*", "/Api/*"]
+  },
+  "responseOverrides": {
+    "401": {
+      "statusCode": 302,
+      "redirect": "/login"
+    }
+  },
+  "mimeTypes": {
+    ".json": "text/json"
+  }
+}

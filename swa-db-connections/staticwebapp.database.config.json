@@ -1,0 +1,100 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.2.10/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('AZURE_SQLCONNECTIONSTRING')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "runtime": {
+    "cache": {
+      "enabled": true
+    },
+    "pagination": {
+      "max-page-size": 1000,
+      "default-page-size": 500
+    },
+    "rest": {
+      "enabled": true,
+      "path": "/rest"
+    },
+    "host": {
+      "authentication": {
+        "provider": "StaticWebApps"
+      },
+      "cors": {
+        "origins": ["http://localhost:4280", "*"],
+        "allow-credentials": false
+      },
+      "mode": "production"
+    }
+  },
+  "entities": {
+    "Post": {
+      "source": "dbo.Posts",
+      "permissions": [
+        {
+          "actions": ["read"],
+          "role": "anonymous"
+        },
+        {
+          "actions": ["*"],
+          "role": "admin"
+        }
+      ]
+    },
+    "Tag": {
+      "source": "dbo.Tags",
+      "permissions": [
+        {
+          "actions": ["read"],
+          "role": "anonymous"
+        },
+        {
+          "actions": ["*"],
+          "role": "admin"
+        }
+      ]
+    },
+    "OC": {
+      "source": "dbo.OCs",
+      "permissions": [
+        {
+          "actions": ["read"],
+          "role": "anonymous"
+        },
+        {
+          "actions": ["*"],
+          "role": "admin"
+        }
+      ]
+    },
+    "Queue": {
+      "source": "dbo.Queue",
+      "permissions": [
+        {
+          "actions": ["read"],
+          "role": "anonymous"
+        },
+        {
+          "actions": ["*"],
+          "role": "admin"
+        }
+      ]
+    },
+    "OniiyannaStatus": {
+      "source": "dbo.OniiyannaStatus",
+      "permissions": [
+        {
+          "actions": ["read"],
+          "role": "anonymous"
+        },
+        {
+          "actions": ["*"],
+          "role": "admin"
+        }
+      ]
+    }
+  }
+}
