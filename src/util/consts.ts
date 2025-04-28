@@ -6,12 +6,12 @@ export const COMMISSION_TIERS: CommissionTier[] = [
     label: 'Chibi',
     count: 4,
     cost: 50,
-    details: ['+15$ for additional characters.'],
+    details: ['+25$ for additional characters.'],
   },
   {
     id: 'flat',
     label: 'Flat Illustration',
-    count: 6,
+    count: 5,
     cost: 90,
     details: [
       '+25$ for additional characters.',
@@ -24,7 +24,7 @@ export const COMMISSION_TIERS: CommissionTier[] = [
     count: 2,
     cost: 105,
     details: [
-      '+25$ for additional characters.',
+      '+30$ for additional characters.',
       'Cleaner linework and colors with a more refined shading.',
     ],
   },
@@ -40,7 +40,7 @@ export const COMMISSION_TIERS: CommissionTier[] = [
     label: 'Alternate Style Illustration',
     count: 5,
     cost: 180,
-    details: ['portraits for 50$', '+50$ for additional characters.', 'SFW only'],
+    details: ['portraits for 50$', '+50$ for additional characters.'],
   },
 ];
 

@@ -2,6 +2,11 @@ import { Post } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a DELETE request, deleting a post from the db.
+ * @param data The post to delete.
+ * @param role The user's roles.
+ */
 export async function deletePost(data: Post, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

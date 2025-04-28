@@ -11,7 +11,7 @@ import useCommissions from '@/features/Commission/hooks/useCommissions';
 
 export default function CommissionAdminActions() {
   const roles = useContext(rolesContext);
-  const { commissions, fetchCommissions } = useCommissions();
+  const { commissions, fetchCommissions, loading } = useCommissions();
 
   return (
     <Grid container spacing={2}>
@@ -37,7 +37,7 @@ export default function CommissionAdminActions() {
         </Accordion>
       </Grid>
       <Grid size={5}>
-        <CommissionQueue queue={commissions} />
+        <CommissionQueue supplied={{ queue: commissions, loading: loading }} />
       </Grid>
     </Grid>
   );

@@ -2,6 +2,11 @@ import { OC } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a PUT request, updating an OC in the db table.
+ * @param data The updated data.
+ * @param role The user's roles.
+ */
 export async function updateOC(data: OC, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

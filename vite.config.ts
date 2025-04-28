@@ -1,9 +1,18 @@
 import { defineConfig } from 'vite';
 import * as path from 'path';
 import react from '@vitejs/plugin-react';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    ViteImageOptimizer({
+      exclude: /\.(gif)$/i,
+      png: {
+        quality: 80,
+      },
+    }),
+  ],
   resolve: {
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
   },

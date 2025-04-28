@@ -2,6 +2,11 @@ import { OC } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a DELETE request, deleting the target oc from the db table.
+ * @param data The OC to delete.
+ * @param role The user's roles.
+ */
 export async function deleteOC(data: OC, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

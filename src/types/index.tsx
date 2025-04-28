@@ -46,6 +46,7 @@ export type CommissionTier = {
   id: string;
   label: string;
   count: number;
+  xCount?: number;
   cost: number;
   details: string[];
 };
@@ -74,3 +75,5 @@ export type OCFormData = {
   descriptionImg: File;
   headerImg: File;
 };
+
+export type DiscordChannel = 'commissions' | 'art post';

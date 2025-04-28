@@ -50,6 +50,13 @@ export function createRouter() {
           },
         },
         {
+          path: '/queue',
+          lazy: async () => {
+            const { Queue } = await import('./Queue');
+            return { Component: Queue };
+          },
+        },
+        {
           path: '/login',
           lazy: async () => {
             const { AdminLogin } = await import('./AdminLogin');

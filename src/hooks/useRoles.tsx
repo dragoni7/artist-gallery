@@ -1,11 +1,14 @@
 import { UserRoles } from '@/util/consts';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * The current user's roles
+ */
 export default function useRoles() {
   const [roles, setRoles] = useState<UserRoles[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function updateRoles() {
+  const updateRoles = useCallback(async () => {
     try {
       const response = await fetch('/.auth/me');
 
@@ -16,7 +19,7 @@ export default function useRoles() {
     } catch (err) {
       console.log(err);
     }
-  }
+  }, [roles]);
 
   useEffect(() => {
     updateRoles();

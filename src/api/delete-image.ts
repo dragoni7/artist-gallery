@@ -1,6 +1,11 @@
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a DELETE request to delete an image.
+ * @param url the url of the image to remove.
+ * @param role the user's roles.
+ */
 export async function deleteImage(url: string, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

@@ -10,7 +10,7 @@ import { mdContext } from '../App';
 import Loading from '@/components/Loading';
 
 export const Commissions = () => {
-  const { status, loading } = useStatus();
+  const { commissionsOpen, loading } = useStatus();
   const [value, setValue] = useState<string>('chibi');
   const isMd = useContext(mdContext);
   const exampleRef = useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ export const Commissions = () => {
 
   return (
     <Paper
-      id="About"
+      id="Commissions"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -38,20 +38,24 @@ export const Commissions = () => {
     >
       <FadeIn>
         <Stack alignItems="center" width="100%">
+          <Typography variant={isMd ? 'h4' : 'h5'} paddingTop={1}>
+            Commissions:{' '}
+            {!loading && (
+              <a style={{ color: commissionsOpen ? 'green' : 'red' }}>
+                {commissionsOpen ? 'Open' : 'Closed'}
+              </a>
+            )}
+          </Typography>
           {loading ? (
             <Loading />
           ) : (
             <>
-              <Typography variant={isMd ? 'h4' : 'h5'} paddingTop={1}>
-                Commissions:{' '}
-                <a style={{ color: status ? 'green' : 'red' }}>{status ? 'Open' : 'Closed'}</a>
-              </Typography>
               <Typography variant={isMd ? 'h6' : 'body1'}>
-                {status
+                {commissionsOpen
                   ? 'Fill out the following form to request a commission from me:'
                   : 'Check here later for the commission request form!'}
               </Typography>
-              {status && <CommissionRequestForm exampleRef={exampleRef} />}
+              {commissionsOpen && <CommissionRequestForm exampleRef={exampleRef} />}
             </>
           )}
           <Typography variant="h5" p={1}>

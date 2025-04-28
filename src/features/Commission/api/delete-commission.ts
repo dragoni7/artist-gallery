@@ -2,6 +2,11 @@ import { Commission } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Deletes a queue entry.
+ * @param data The commission to remove from the queue.
+ * @param role The user's roles.
+ */
 export async function deleteCommission(data: Commission, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

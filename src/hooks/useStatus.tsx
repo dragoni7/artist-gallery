@@ -1,28 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * Provides fields from Oniiyanna status db table
+ */
 export default function useStatus() {
-  const [status, setStatus] = useState<boolean>(false);
+  const [commissionsOpen, setCommissionsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function fetchStatus() {
+  const fetchStatus = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/data-api/rest/OniiyannaStatus');
 
-      if (!response.ok) throw new Error('Error fetching status!');
+      if (!response.ok) throw new Error('Error fetching oniiyanna status!');
 
       const status = await response.json();
-      setStatus(status.value[0].Open);
+      setCommissionsOpen(status.value[0].Open);
     } catch (err) {
       console.log(err);
     }
 
     setLoading(false);
-  }
+  }, [commissionsOpen]);
 
   useEffect(() => {
     fetchStatus();
   }, []);
 
-  return { status, fetchStatus, loading };
+  return { commissionsOpen, fetchStatus, loading };
 }

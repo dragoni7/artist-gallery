@@ -2,6 +2,11 @@ import { Post } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a PUT request, updating a post in the db.
+ * @param data The updated data.
+ * @param role The user's roles.
+ */
 export async function updatePost(data: Post, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

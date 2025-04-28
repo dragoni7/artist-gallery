@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Api.Dtos;
 using Api.Services;
 using Api.Util;
@@ -5,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Tweetinvi.Core.Extensions;
+using Tweetinvi.Core.Web;
 
 namespace Api.Functions
 {
@@ -38,9 +42,18 @@ namespace Api.Functions
 
                 PostTweetRequestDto newTweet = new() { Text = text, Media = new() { MediaIds = mediaIDs.ToArray() } };
 
-                var result = await _tweetService.UploadMediaTweetAsync(newTweet);
+                ITwitterResult result = await _tweetService.UploadMediaTweetAsync(newTweet);
 
-                return result != null && result.Response.IsSuccessStatusCode ? new OkObjectResult("Tweet upload success! " + result.Content) : new BadRequestObjectResult("Tweet upload failed " + result.Content);
+                if (result != null && result.Response.IsSuccessStatusCode)
+                {
+                    var responseJson = result.Response.Content;
+
+                    using JsonDocument doc = JsonDocument.Parse(responseJson);
+                    var tweetId = doc.RootElement.GetProperty("data").GetProperty("id").GetString();
+                    return new OkObjectResult($"https://girlcockx.com/oniiyanna/status/{tweetId}");
+                }
+
+                return new BadRequestObjectResult("Tweet upload failed " + result.Response.Content);
             }
 
             return new BadRequestObjectResult("Expected FormContent type.");

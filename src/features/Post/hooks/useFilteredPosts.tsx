@@ -2,6 +2,10 @@ import { Post } from '@/types';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+/**
+ * Provides an array of filtered posts according to search params.
+ * @param posts pre-filtered posts.
+ */
 export default function useFilteredPosts(posts: Post[]) {
   const [filteredPosts, setFilteredPosts] = useState<Post[]>(posts);
   const [searchParams] = useSearchParams();

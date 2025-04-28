@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import AppTheme from '@/theme/AppTheme';
 import { ToastContainer } from 'react-toastify';
 
+// The background pattern
 const inputGlobalStyles = (
   <GlobalStyles
     styles={{
@@ -41,6 +42,7 @@ export default function App(props: any) {
   const theme = useTheme();
 
   const [isMd] = useState<boolean>(useMediaQuery(theme.breakpoints.up('md')));
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -61,7 +63,7 @@ export default function App(props: any) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              marginBottom: 2,
+              marginBottom: 1,
             }}
           >
             <mdContext.Provider value={isMd}>

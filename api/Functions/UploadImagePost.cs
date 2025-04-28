@@ -28,30 +28,30 @@ namespace Api.Functions
 
                 if (!authenticated)
                 {
-					return new BadRequestObjectResult("Could not authenticate bluesky account");
-				}
+                    return new BadRequestObjectResult("Could not authenticate bluesky account");
+                }
 
                 List<ImageEmbed> postImages = new();
-				string text = req.Form["text"].ToString();
+                string text = req.Form["text"].ToString();
 
-				foreach (var file in req.Form.Files)
+                foreach (var file in req.Form.Files)
                 {
 
                     byte[] bytes = await file.LosslessCompressToBytesAsync();
 
-					// bluesky size limit
-					if (bytes.Length > 999997.44)
+                    // bluesky size limit
+                    if (bytes.Length > 999997.44)
                     {
                         bytes = await file.CompressToBytesAsync();
                     }
 
-					Image? image = await _blueskyService.UploadBlobAsync(bytes);
+                    Image? image = await _blueskyService.UploadBlobAsync(bytes);
 
-					if (image != null)
-					{
-						postImages.Add(new(image, file.Name));
-					}
-				}
+                    if (image != null)
+                    {
+                        postImages.Add(new(image, file.Name));
+                    }
+                }
 
                 if (postImages.Count > 0)
                 {
@@ -62,22 +62,22 @@ namespace Api.Functions
                     await result.SwitchAsync(
                         async success =>
                         {
-						    finalResponse = new OkObjectResult("Uploaded bluesky post at " + success.Uri);
-						},
+                            finalResponse = new OkObjectResult(success.Uri);
+                        },
                         async error =>
                         {
-						    finalResponse = new BadRequestObjectResult("Images could not be uploaded to bluesky. " + error.Detail);
-						});
+                            finalResponse = new BadRequestObjectResult("Images could not be uploaded to bluesky. " + error.Detail);
+                        });
 
                     return finalResponse;
-				}
+                }
                 else
                 {
-					return new BadRequestObjectResult("Images could not be uploaded to bluesky.");
-				}
-			}
+                    return new BadRequestObjectResult("Images could not be uploaded to bluesky.");
+                }
+            }
 
-			return new BadRequestObjectResult("Expected FormContent type.");
-		}
+            return new BadRequestObjectResult("Expected FormContent type.");
+        }
     }
 }

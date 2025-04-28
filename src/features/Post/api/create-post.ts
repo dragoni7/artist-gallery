@@ -2,6 +2,11 @@ import { PostDto } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a POST request, adding an new post entry in the db.
+ * @param data The post data.
+ * @param role The user's roles.
+ */
 export async function createPost(data: PostDto, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

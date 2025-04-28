@@ -1,11 +1,14 @@
 import { Commission } from '@/types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * Provides a list of commissions from the db.
+ */
 export default function useCommissions() {
   const [commissions, setCommissions] = useState<Commission[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function fetchCommissions() {
+  const fetchCommissions = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/data-api/rest/Queue');
@@ -32,7 +35,7 @@ export default function useCommissions() {
     }
 
     setLoading(false);
-  }
+  }, [commissions]);
 
   useEffect(() => {
     fetchCommissions();

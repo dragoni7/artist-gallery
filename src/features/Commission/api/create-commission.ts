@@ -2,6 +2,11 @@ import { CommissionDto } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a new queue entry in the db.
+ * @param data commission data.
+ * @param role user's roles.
+ */
 export async function createCommission(data: CommissionDto, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

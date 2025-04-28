@@ -2,6 +2,11 @@ import { Commission } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Updates an entry in the queue.
+ * @param data The commission to edit in the queue.
+ * @param role The user's roles.
+ */
 export async function updateCommission(data: Commission, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

@@ -26,6 +26,10 @@ export default function TermsOfServiceList() {
     <Box overflow="scroll" sx={{ backgroundColor: 'rgba(1, 1, 1, 0.42)', borderRadius: 4, m: 1 }}>
       <List dense>
         <Divider>
+          <Typography variant="h6">Won't Draw</Typography>
+        </Divider>
+        {TermsListItem('Muscular men, Mecha / Gundam, Western Furry')}
+        <Divider>
           <Typography variant="h6">Pricing Info</Typography>
         </Divider>
         {TermsListItem(

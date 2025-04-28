@@ -1,6 +1,10 @@
 import { CommissionRequest } from '@/types';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a POST request, sending a commission request email through the api.
+ * @param data request data.
+ */
 export async function createCommissionRequest(data: CommissionRequest) {
   try {
     const response = await fetch('/Api/SendEmail', {

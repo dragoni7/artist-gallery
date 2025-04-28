@@ -139,7 +139,7 @@ export default function CommissionRequestForm(props: CommissionRequestFormProps)
                     }}
                     onClick={scrollToExamples}
                   >
-                    Examples can be viewed below
+                    Examples can be viewed below.
                   </Typography>
                   {errors.commissionTier && (
                     <Typography

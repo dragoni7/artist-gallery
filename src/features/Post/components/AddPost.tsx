@@ -21,6 +21,7 @@ import { createPost } from '../api/create-post';
 import { createTwitterPost } from '../api/create-twitter-post';
 import { createBlueskyPost } from '../api/create-bluesky-post';
 import FormTextField from '@/components/FormTextField';
+import { sendDiscordMessage } from '@/api/send-discord-message';
 
 interface AddPostProps {
   fetchPosts: () => Promise<void>;
@@ -89,7 +90,11 @@ export default function AddPost(props: AddPostProps) {
     }
 
     if (data.twitter) {
-      await createTwitterPost(data.images, data.uploadText || '', roles);
+      const tweetUrl = await createTwitterPost(data.images, data.uploadText || '', roles);
+
+      if (tweetUrl !== null) {
+        await sendDiscordMessage('art post', '<@&1363612852946075718>\n' + tweetUrl, roles);
+      }
     }
 
     if (data.blueSky) {

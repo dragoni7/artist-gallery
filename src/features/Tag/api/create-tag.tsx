@@ -2,6 +2,11 @@ import { Tag } from '@/types';
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a POST request, adding a new tag to the db.
+ * @param data The tag to create.
+ * @param role The user's roles.
+ */
 export async function createTag(data: Tag, role: string[]) {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');

@@ -41,7 +41,11 @@ export const About = () => {
           <Typography variant={isMd ? 'h4' : 'h5'}>Where to Find Me</Typography>
           <Zoom in={true} mountOnEnter unmountOnExit>
             <Stack direction="row" gap={4} alignItems="center" justifyContent="center" p={1}>
-              <IconLink link={''} icon={faTwitter} title="Twitter" />
+              <IconLink
+                link={'https://twitter.com/oniyannasama'}
+                icon={faTwitter}
+                title="Twitter"
+              />
               <IconLink link="" icon={faPaintBrush} title="Picarto" />
               <IconLink link="" icon={faDiscord} title="Discord" />
             </Stack>

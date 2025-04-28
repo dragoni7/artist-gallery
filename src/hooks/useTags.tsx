@@ -1,11 +1,14 @@
 import { Tag } from '@/types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * Provides list of tags from Tags db table
+ */
 export default function useTags() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function fetchTags() {
+  const fetchTags = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/data-api/rest/Tag');
@@ -28,7 +31,7 @@ export default function useTags() {
     }
 
     setLoading(false);
-  }
+  }, [tags]);
 
   useEffect(() => {
     fetchTags();

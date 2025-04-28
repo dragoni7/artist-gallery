@@ -1,6 +1,12 @@
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
+/**
+ * Creates a POST request, uploading an image to backend.
+ * @param file The image to upload.
+ * @param role The user's roles.
+ * @returns The uploaded image's uri.
+ */
 export async function uploadImage(file: File, role: string[]): Promise<string> {
   let uri: string = '';
 

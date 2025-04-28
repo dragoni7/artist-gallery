@@ -1,11 +1,14 @@
 import { OC } from '@/types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * Provides a list of OCs from the db.
+ */
 export default function useOCs() {
   const [ocs, setOCs] = useState<OC[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function fetchOCs() {
+  const fetchOCs = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/data-api/rest/OC');
@@ -28,7 +31,7 @@ export default function useOCs() {
       console.log(err);
     }
     setLoading(false);
-  }
+  }, [ocs]);
 
   useEffect(() => {
     fetchOCs();

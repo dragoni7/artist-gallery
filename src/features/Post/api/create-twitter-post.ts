@@ -1,7 +1,18 @@
 import { UserRoles } from '@/util/consts';
 import { toast } from 'react-toastify';
 
-export async function createTwitterPost(files: FileList, text: string, role: string[]) {
+/**
+ * Creates a POST request, creating a new twitter post.
+ * @param files Images to include in the post.
+ * @param text Text to include in the post.
+ * @param role The user's roles.
+ * @returns The created tweet url.
+ */
+export async function createTwitterPost(
+  files: FileList,
+  text: string,
+  role: string[]
+): Promise<string | null> {
   try {
     if (!role.includes(UserRoles.ADMIN)) throw new Error('missing required permissions');
 
@@ -22,8 +33,11 @@ export async function createTwitterPost(files: FileList, text: string, role: str
 
     if (!response.ok) throw new Error(response.statusText);
 
-    toast.success('Tweet created! \n');
+    const result: string = await response.text();
+    toast.success('Tweet created! \n' + result);
+    return result;
   } catch (err) {
     toast.error('Error creating tweet: ' + err);
+    return null;
   }
 }

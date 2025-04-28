@@ -1,11 +1,14 @@
 import { Post, Tag } from '@/types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * Provides a list of posts from the db.
+ */
 export default function usePosts() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function fetchPosts() {
+  const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('/data-api/rest/Post');
@@ -32,7 +35,7 @@ export default function usePosts() {
     }
 
     setLoading(false);
-  }
+  }, [posts]);
 
   useEffect(() => {
     fetchPosts();
