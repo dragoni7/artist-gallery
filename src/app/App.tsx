@@ -42,7 +42,6 @@ export default function App(props: any) {
   const theme = useTheme();
 
   const [isMd] = useState<boolean>(useMediaQuery(theme.breakpoints.up('md')));
-  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
