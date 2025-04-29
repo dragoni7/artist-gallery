@@ -50,7 +50,7 @@ namespace Api.Functions
 
                     using JsonDocument doc = JsonDocument.Parse(responseJson);
                     var tweetId = doc.RootElement.GetProperty("data").GetProperty("id").GetString();
-                    return new OkObjectResult($"https://girlcockx.com/oniiyanna/status/{tweetId}");
+                    return new OkObjectResult($"https://fixupx.com/oniiyanna/status/{tweetId}");
                 }
 
                 return new BadRequestObjectResult("Tweet upload failed " + result.Response.Content);

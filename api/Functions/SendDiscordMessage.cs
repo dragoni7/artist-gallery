@@ -24,7 +24,7 @@ namespace Api.Functions
         [Function("SendDiscordMessage")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation("Triggered SendDiscordMessage function");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic? data = JsonConvert.DeserializeObject(requestBody);
@@ -48,16 +48,21 @@ namespace Api.Functions
 
             string jsonPayload = JsonConvert.SerializeObject(discordPayload);
 
-            HttpResponseMessage response = await _httpClient.PostAsync(channel == "commissions" ? _commissionChannelWebhook : _artPostChannelWebhook, new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+            // Add delay to avoid embed errors.
+            _logger.LogInformation("Sending discord message in 30 seconds...");
+            await Task.Delay(TimeSpan.FromSeconds(30));
 
-
-            if (response.IsSuccessStatusCode)
+            try
             {
+                HttpResponseMessage response = await _httpClient.PostAsync(channel == "commissions" ? _commissionChannelWebhook : _artPostChannelWebhook, new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+
+                response.EnsureSuccessStatusCode();
+
                 return new OkObjectResult($"Message sent to Discord: {message}");
             }
-            else
+            catch (Exception ex)
             {
-                _logger.LogError($"Failed to send message to Discord. Status code: {response.StatusCode}");
+                _logger.LogError($"Failed to send message to Discord: {ex.Message}");
                 return new StatusCodeResult(500);
             }
         }
